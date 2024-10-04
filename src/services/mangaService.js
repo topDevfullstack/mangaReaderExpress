@@ -1,10 +1,10 @@
-const User = require('../models/userModel');
+const Manga = require('../models/mangaModel');
 
-class UserService {
-  async getAllUsers() {
-    console.log(123)
-    return User.find();
+class MangaService {
+  async getFilterMangas(data) {
+    // console.log(data);
+    return Manga.find();
   }
 }
 
-module.exports = new UserService();
+module.exports = new MangaService();

@@ -1,14 +1,15 @@
-const userService = require('../services/userService');
+const mangaService = require('../services/mangaService');
 
-class UserController {
-  async getAllUsers(req, res) {
+class MangaController {
+  async getFilterMangas(req, res) {
     try {
-      const users = await userService.getAllUsers();
-      res.status(200).json(users);
+      // console.log(req.query);
+      const mangas = await mangaService.getFilterMangas(req.query);
+      res.status(200).json(mangas);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   }
 }
 
-module.exports = new UserController();
+module.exports = new MangaController();

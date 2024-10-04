@@ -7,7 +7,6 @@ class UserService {
   }
 
   async getAllUsers() {
-    console.log(123)
     return User.find();
   }
 
