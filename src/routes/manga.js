@@ -23,23 +23,8 @@ router.get('/', async (req, res) => {
     });
 
     resp.data.data.map(async(manga )=> {
-      // console.log(manga.id);
+      console.log(manga.id);
       const obj = { mangaId: manga.id, chapters: [] };
-      const respChapters = await axios({
-        method: 'GET',
-        url: `${baseUrl}/manga/${manga.id}/feed`
-      });
-      respChapters.data.data.map(async(chapter) => {
-        // console.log(chapter.id);
-        const respDownloads = await axios({
-          method: 'GET',
-          url: `${baseUrl}/at-home/server/${chapter.id}`
-        });
-        // console.log(respDownloads.data.chapter);
-        obj.chapters.push({ id: chapter.id, title: chapter.attributes.title, downloads: respDownloads.data.chapter });
-      });
-      console.log(obj);
-      chaptersAll.push(obj);
     });
 
     const mangas = await Manga.find();
