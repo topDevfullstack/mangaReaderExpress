@@ -2,9 +2,11 @@
 const mongoose = require('mongoose');
 
 const MangaSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  type: { type: String, required: true, unique: true },
-  title: { type: String, required: true },
+  id: { type: String, required: true, unique: true },
+  type: { type: String },
+  title: { type: String },
+  createdAt: { type: Date },
+  updatedAt: { type: Date }
 });
 
 module.exports = mongoose.model('Manga', MangaSchema);
