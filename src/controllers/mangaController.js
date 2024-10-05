@@ -1,5 +1,6 @@
 const mangaService = require('../services/mangaService');
 const chapterService = require('../services/chapterService');
+const downService = require('../services/downService');
 class MangaController {
   async getFindMangas(req, res) {
     try {
@@ -16,6 +17,16 @@ class MangaController {
       // console.log(req.params);
       const chapters = await chapterService.getFindChapters(req.params);
       res.status(200).json(chapters);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  async getFindDownByChapterId(req, res) {
+    try {
+      // console.log(req.params);
+      const downs = await downService.getFindDowns(req.params);
+      res.status(200).json(downs);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
 const Chapter = require('../models/chapterModel');
-class MangaService {
+class ChapterService {
   async getFindChapters({ mangaId }) {
     const resp = await axios({
       method: 'GET',
@@ -43,4 +43,4 @@ class MangaService {
   }
 }
 
-module.exports = new MangaService();
+module.exports = new ChapterService();
