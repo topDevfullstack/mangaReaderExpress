@@ -1,7 +1,6 @@
-const Manga = require('../models/mangaModel');
 const dotenv = require('dotenv');
 const axios = require('axios');
-
+const Manga = require('../models/mangaModel');
 class MangaService {
   async getFindMangas(filter) {
     const { title } = filter;
@@ -12,16 +11,18 @@ class MangaService {
         title: title
       }
     });
+    let res = [];
     resp && resp.data.data.map(async(manga)=> {
       // console.log(manga);
       const mangaData = { id: manga.id, type: manga.type, title: manga.attributes.title.en, createdAt: manga.attributes.createdAt, updatedAt: manga.attributes.updatedAt };
       // console.log(mangaData);
+      res.push(mangaData);
       const mangaRow = await this.getMangaById(mangaData.id);
       // console.log(mangaRow);
-      if (!(await this.getMangaById(mangaData.id)).length) this.insertMangaCollection(mangaData);
+      if (!mangaRow.length) this.insertMangaCollection(mangaData);
     });
 
-    const res = this.getAllMangas();
+    // console.log(res);
     return res;
   }
 
@@ -31,7 +32,7 @@ class MangaService {
   }
 
   async getAllMangas(filter) {
-    return Manga.find();
+    return Manga.find(filter);
   }
 
   async getMangaById(mangaId) {
