@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
-const Down = require('../models/downModel');
+const dbService = require('./dbService');
 class DownService {
   async getFindDowns({ chapterId }) {
     // console.log(chapterId);
@@ -14,33 +14,12 @@ class DownService {
       // console.log(down);
       const downData = { id: down.id, data: down.chapter.data, dataSaver: down.chapter.dataSaver, chapterId: chapterId };
       res.push(downData);
-      const downRow = await this.getDownByChapterId(chapterId);
+      const downRow = await dbService.getDownByChapterId(chapterId);
       // console.log(downRow);
-      if (!downRow.length) this.insertDownCollection(downData);
+      if (!downRow.length) dbService.insertDownCollection(downData);
 
     // console.log(res);
     return res;
-  }
-
-  async insertDownCollection(data) {
-    const down = new Down(data);
-    return down.save();
-  }
-
-  async getAllDowns(filter) {
-    return Down.find(filter);
-  }
-
-  async getDownByChapterId(chapterId) {
-    return Down.find({ chapterId: chapterId });
-  }
-
-  async updateDown(chapterId, chapterData) {
-    return Chapter.findByIdAndUpdate(chapterId, chapterData, { new: true });
-  }
-
-  async deleteDown(chapterId) {
-    return Chapter.findByIdAndDelete(chapterId);
   }
 }
 

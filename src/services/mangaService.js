@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
-const Manga = require('../models/mangaModel');
+const dbService = require('./dbService');
 class MangaService {
   async getFindMangas(filter) {
     const { title } = filter;
@@ -17,34 +17,13 @@ class MangaService {
       const mangaData = { id: manga.id, type: manga.type, title: manga.attributes.title.en, createdAt: manga.attributes.createdAt, updatedAt: manga.attributes.updatedAt };
       // console.log(mangaData);
       res.push(mangaData);
-      const mangaRow = await this.getMangaById(mangaData.id);
+      const mangaRow = await dbService.getMangaById(mangaData.id);
       // console.log(mangaRow);
-      if (!mangaRow.length) this.insertMangaCollection(mangaData);
+      if (!mangaRow.length) dbService.insertMangaCollection(mangaData);
     });
 
     // console.log(res);
     return res;
-  }
-
-  async insertMangaCollection(data) {
-    const manga = new Manga(data);
-    return manga.save();
-  }
-
-  async getAllMangas(filter) {
-    return Manga.find(filter);
-  }
-
-  async getMangaById(mangaId) {
-    return Manga.find({ id: mangaId });
-  }
-
-  async updateManga(mangaId, mangaData) {
-    return Manga.findByIdAndUpdate(mangaId, mangaData, { new: true });
-  }
-
-  async deleteManga(mangaId) {
-    return Manga.findByIdAndDelete(mangaId);
   }
 }
 
