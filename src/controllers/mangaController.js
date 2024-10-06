@@ -22,6 +22,15 @@ class MangaController {
     }
   }
 
+  async getFindAllChapters(req, res) {
+    try {
+      const chapters = await chapterService.getFindAllChapters(req.query);
+      res.status(200).json(chapters);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   async getFindDownByChapterId(req, res) {
     try {
       // console.log(req.params);

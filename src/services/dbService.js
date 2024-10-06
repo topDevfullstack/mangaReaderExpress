@@ -3,6 +3,10 @@ const Chapter = require('../models/chapterModel');
 const Down = require('../models/downModel');
 
 class ReadDbService {
+  async getFindChaptersList(data) {
+    
+  }
+
   async insertMangaCollection(data) {
     const manga = new Manga(data);
     return manga.save();

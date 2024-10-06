@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mangaController = require('../controllers/mangaController');
+const dbController = require('../controllers/dbController');
 
-router.get('/', mangaController.getFindMangas.bind(mangaController));
-router.get('/chapter/:mangaId', mangaController.getFindChaptersByMangaId.bind(mangaController));
-router.get('/down/:chapterId', mangaController.getFindDownByChapterId.bind(mangaController));
+router.get('/list', dbController.getFindChaptersList.bind(dbController));
 
 module.exports = router;

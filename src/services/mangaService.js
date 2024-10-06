@@ -3,13 +3,10 @@ const axios = require('axios');
 const dbService = require('./dbService');
 class MangaService {
   async getFindMangas(filter) {
-    const { title } = filter;
     const resp = await axios({
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/manga`,
-      params: {
-        title: title
-      }
+      params: filter
     });
     let res = [];
     resp && resp.data.data.map(async(manga)=> {

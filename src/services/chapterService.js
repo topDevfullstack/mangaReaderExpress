@@ -20,6 +20,28 @@ class ChapterService {
     // console.log(res);
     return res;
   }
+
+  async getFindAllChapters(filter) {
+    let res = [];
+    const mangas = await dbService.getAllMangas(filter);
+    mangas && mangas.map(async(manga) => {
+      const resp = await axios({
+        method: 'GET',
+        url: `${process.env.MANGADEX_URI}/manga/${manga.id}/feed`
+      });
+      resp && resp.data.data.map(async(chapter)=> {
+        // console.log(chapter);
+        const chapterData = { id: chapter.id, type: chapter.type, title: chapter.attributes.title, mangaId: manga.id, createdAt: chapter.attributes.createdAt, updatedAt: chapter.attributes.updatedAt };
+        res.push(chapterData);
+        const chapterRow = await dbService.getChapterById(chapterData.id);
+        // console.log(chapterRow);
+        if (!chapterRow.length) dbService.insertChapterCollection(chapterData);
+      });
+    });
+
+    // console.log(res);
+    return res;
+  }
 }
 
 module.exports = new ChapterService();
