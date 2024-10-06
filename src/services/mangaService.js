@@ -3,12 +3,13 @@ const axios = require('axios');
 const dbService = require('./dbService');
 class MangaService {
   async getFindMangas(filter) {
+    // console.log(filter);
+    let res = [];
     const resp = await axios({
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/manga`,
       params: filter
     });
-    let res = [];
     resp && resp.data.data.map(async(manga)=> {
       // console.log(manga);
       const mangaData = { id: manga.id, type: manga.type, title: manga.attributes.title.en, createdAt: manga.attributes.createdAt, updatedAt: manga.attributes.updatedAt };

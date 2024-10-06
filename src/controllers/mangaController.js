@@ -40,6 +40,16 @@ class MangaController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  async getFindAllDown(req, res) {
+    try {
+      // console.log(req.params);
+      const downs = await downService.getFindAllDowns(req.query);
+      res.status(200).json(downs);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = new MangaController();
