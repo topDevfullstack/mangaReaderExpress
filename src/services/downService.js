@@ -15,6 +15,7 @@ class DownService {
     const chapters = await dbService.getAllChapters(filter);
     // console.log(chapters);
     chapters && chapters.map(async(chapter, index) => {
+      if (index % 10 == 0) await this.delay(500);
       res = await this.getDowns(chapter.id);
     });
 
@@ -37,6 +38,10 @@ class DownService {
     if (!downRow.length) await dbService.insertDownCollection(downData);
 
     return res;
+  }
+
+  async delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 

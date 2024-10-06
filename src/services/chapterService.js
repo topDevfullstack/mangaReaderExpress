@@ -3,7 +3,7 @@ const axios = require('axios');
 const dbService = require('./dbService');
 class ChapterService {
   async getFindChapters({ mangaId }) {
-    console.log(mangaId);
+    // console.log(mangaId);
     const res = await this.getChapters(mangaId);
 
     // console.log(res);
@@ -14,7 +14,7 @@ class ChapterService {
     let res = [];
     const mangas = await dbService.getAllMangas(filter);
     mangas && mangas.map(async(manga, index) => {
-      // if (index % 10 == 0) ;
+      if (index % 10 == 0) await this.delay(500);
       res = await this.getChapters(manga.id);
     });
 
@@ -38,6 +38,10 @@ class ChapterService {
     });
 
     return res;
+  }
+
+  async delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 
