@@ -12,14 +12,14 @@ class ChapterService {
 
   async getFindAllChapters(filter) {
     let res = [];
-    let count = 0;
+    // let count = 0;
     const mangas = await dbService.getAllMangas(filter);
     mangas && mangas.map(async (manga, index) => {
-      const chapterRow = await dbService.getAllChapters({ mangaId: manga.id });
-      if (count < 10 && chapterRow && !chapterRow.length) {
+      // const chapterRow = await dbService.getAllChapters({ mangaId: manga.id });
+      // if (count < 10 && chapterRow && !chapterRow.length) {
         res.push(await this.getChapters(manga.id));
-        count++;
-      }
+        // count++;
+      // }
     });
 
     // console.log(res);

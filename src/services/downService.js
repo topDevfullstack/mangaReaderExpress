@@ -36,7 +36,7 @@ class DownService {
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/at-home/server/${chapterId}`
     });
-    console.log(resp.data);
+    // console.log(resp.data);
     const down = resp.data;
     const downData = { id: down.id, data: down.chapter.data, dataSaver: down.chapter.dataSaver, chapterId: chapterId };
     res.push(downData);
