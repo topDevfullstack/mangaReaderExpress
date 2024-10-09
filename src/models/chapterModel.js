@@ -4,7 +4,7 @@ const ChapterSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   type: { type: String },
   title: { type: String },
-  mangaId: { type: mongoose.Schema.Types.UUID, ref: 'Manga', required: true },
+  mangaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Manga', required: true },
   createdAt: { type: Date },
   updatedAt: { type: Date }
 });

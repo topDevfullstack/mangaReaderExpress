@@ -17,16 +17,16 @@ class ReadDbService {
     return Manga.find(filter);
   }
 
-  async getMangaById(mangaId) {
-    return Manga.find({ id: mangaId });
+  async getMangaById(_id) {
+    return Manga.findById(_id);
   }
 
-  async updateManga(mangaId, mangaData) {
-    return Manga.findByIdAndUpdate(mangaId, mangaData, { new: true });
+  async updateManga(_id, mangaData) {
+    return Manga.findByIdAndUpdate(_id, mangaData, { new: true });
   }
 
-  async deleteManga(mangaId) {
-    return Manga.findByIdAndDelete(mangaId);
+  async deleteManga(_id) {
+    return Manga.findByIdAndDelete(_id);
   }
 
   async insertChapterCollection(data) {
@@ -38,16 +38,16 @@ class ReadDbService {
     return Chapter.find(filter);
   }
 
-  async getChapterById(chapterId) {
-    return Chapter.find({ id: chapterId });
+  async getChapterById(_id) {
+    return Chapter.findById(_id);
   }
 
-  async updateChapter(chapterId, chapterData) {
-    return Chapter.findByIdAndUpdate(chapterId, chapterData, { new: true });
+  async updateChapter(_id, chapterData) {
+    return Chapter.findByIdAndUpdate(_id, chapterData, { new: true });
   }
 
-  async deleteChapter(chapterId) {
-    return Chapter.findByIdAndDelete(chapterId);
+  async deleteChapter(_id) {
+    return Chapter.findByIdAndDelete(_id);
   }
 
   async insertDownCollection(data) {
@@ -59,16 +59,16 @@ class ReadDbService {
     return Down.find(filter);
   }
 
-  async getDownByChapterId(chapterId) {
-    return Down.find({ chapterId: chapterId });
+  async getDownById(_id) {
+    return Down.findById(_id);
   }
 
-  async updateDown(chapterId, chapterData) {
-    return Chapter.findByIdAndUpdate(chapterId, chapterData, { new: true });
+  async updateDown(_id, chapterData) {
+    return Chapter.findByIdAndUpdate(_id, chapterData, { new: true });
   }
 
-  async deleteDown(chapterId) {
-    return Chapter.findByIdAndDelete(chapterId);
+  async deleteDown(_id) {
+    return Chapter.findByIdAndDelete(_id);
   }
 }
 

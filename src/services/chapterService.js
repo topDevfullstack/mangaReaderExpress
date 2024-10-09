@@ -2,22 +2,14 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 const dbService = require('./dbService');
 class ChapterService {
-  async getFindChapters({ mangaId }) {
-    // console.log(mangaId);
-    const res = await this.getChapters(mangaId);
-
-    // console.log(res);
-    return res;
-  }
-
-  async getFindAllChapters(filter) {
+  async insertAllChapters(filter) {
     let res = [];
     // let count = 0;
     const mangas = await dbService.getAllMangas(filter);
     mangas && mangas.map(async (manga, index) => {
       // const chapterRow = await dbService.getAllChapters({ mangaId: manga.id });
       // if (count < 10 && chapterRow && !chapterRow.length) {
-        res.push(await this.getChapters(manga.id));
+        res.push(await this.insertChapters(manga._id, manga.id));
         // count++;
       // }
     });
@@ -26,27 +18,21 @@ class ChapterService {
     return res;
   }
 
-  async getChapters(mangaId) {
+  async insertChapters(objId, mangaId) {
     let res = [];
-
     const resp = await axios({
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/manga/${mangaId}/feed`
     });
     resp && resp.data.data.map(async (chapter) => {
       // console.log(chapter);
-      const chapterData = { id: chapter.id, type: chapter.type, title: chapter.attributes.title, mangaId: mangaId, createdAt: chapter.attributes.createdAt, updatedAt: chapter.attributes.updatedAt };
+      const chapterData = { id: chapter.id, type: chapter.type, title: chapter.attributes.title, mangaId: objId, createdAt: chapter.attributes.createdAt, updatedAt: chapter.attributes.updatedAt };
       res.push(chapterData);
-      const chapterRow = await dbService.getChapterById(chapterData.id);
+      const chapterRow = await dbService.getAllChapters({ id: chapterData.id });
       // console.log(chapterRow);
       if (!chapterRow.length) await dbService.insertChapterCollection(chapterData);
     });
-
     return res;
-  }
-
-  async delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 

@@ -16,11 +16,11 @@ class DownService {
     const chapters = await dbService.getAllChapters(filter);
     // console.log(chapters);
     chapters && chapters.map(async (chapter, index) => {
-      const downRow = await dbService.getAllDowns({ chapterId: chapter.id });
+      const downRow = await dbService.getAllDowns({ chapterId: chapter._id });
       // console.log(downRow);
       if (count < 10 && !downRow.length) {
         count++;
-        res = await this.getDowns(chapter.id);
+        res = await this.getDowns(chapter._id, chapter.id);
       }
     });
 
@@ -28,7 +28,7 @@ class DownService {
     return res;
   }
 
-  async getDowns(chapterId) {
+  async getDowns(objId, chapterId) {
     // console.log(chapterId);
     let res = [];
 
@@ -38,9 +38,9 @@ class DownService {
     });
     // console.log(resp.data);
     const down = resp.data;
-    const downData = { id: down.id, data: down.chapter.data, dataSaver: down.chapter.dataSaver, chapterId: chapterId };
+    const downData = { id: down.id, data: down.chapter.data, dataSaver: down.chapter.dataSaver, chapterId: objId };
     res.push(downData);
-    const downRow = await dbService.getDownByChapterId(chapterId);
+    const downRow = await dbService.getDownByChapterId(downData.id);
     // console.log(downRow);
     if (!downRow.length) await dbService.insertDownCollection(downData);
 
