@@ -43,7 +43,7 @@ class ChapterService {
             id: chapter.id,
             type: chapter.type,
             title: chapter.attributes.title,
-            mangaId: objId,
+            manga: objId,
             createdAt: chapter.attributes.createdAt,
             updatedAt: chapter.attributes.updatedAt
           };

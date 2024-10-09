@@ -4,7 +4,7 @@ const Down = require('../models/downModel');
 
 class ReadDbService {
   async getFindDownsList(data) {
-    const downs = await Down.find(data).populate({ path: 'Chapter', populate: { path: 'Manga' } });
+    const downs = await Down.find(data).populate({ path: 'chapter', populate: { path: 'manga' } });
     return downs;
   }
 

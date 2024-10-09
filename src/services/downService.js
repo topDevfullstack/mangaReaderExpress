@@ -11,7 +11,7 @@ class DownService {
 
       // Create an array of Promises to handle the async operations
       const downPromises = chapters.map(async (chapter) => {
-        const downRow = await dbService.getAllDowns({ chapterId: chapter._id });
+        const downRow = await dbService.getAllDowns({ chapter: chapter._id });
 
         if (count < 10 && !downRow.length) {
           count++;
@@ -44,10 +44,10 @@ class DownService {
         baseUrl: down.baseUrl,
         data: down.chapter.data,
         dataSaver: down.chapter.dataSaver,
-        chapterId: objId
+        chapter: objId
       };
 
-      const downRow = await dbService.getAllDowns({ chapterId: downData.chapterId });
+      const downRow = await dbService.getAllDowns({ chapter: downData.chapter });
 
       if (!downRow.length) {
         const flag = await dbService.insertDownCollection(downData);
