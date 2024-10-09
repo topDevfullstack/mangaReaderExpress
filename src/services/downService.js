@@ -14,9 +14,14 @@ class DownService {
     let res = [];
     const chapters = await dbService.getAllChapters(filter);
     // console.log(chapters);
-    chapters && chapters.map(async(chapter, index) => {
-      if (index % 10 == 0) await this.delay(500);
-      res = await this.getDowns(chapter.id);
+    chapters && chapters.map(async (chapter, index) => {
+      let count = 0;
+      const downRow = await dbService.getAllDowns({ chapterId: chapter.id });
+      // console.log(downRow);
+      if (count < 10 && !downRow.length) {
+        res = await this.getDowns(chapter.id);
+        count++;
+      }
     });
 
     // console.log(res);
@@ -25,6 +30,7 @@ class DownService {
 
   async getDowns(chapterId) {
     let res = [];
+
     const resp = await axios({
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/at-home/server/${chapterId}`
