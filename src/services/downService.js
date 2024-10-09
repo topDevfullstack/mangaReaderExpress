@@ -12,15 +12,15 @@ class DownService {
 
   async getFindAllDowns(filter) {
     let res = [];
+    let count = 0;
     const chapters = await dbService.getAllChapters(filter);
     // console.log(chapters);
     chapters && chapters.map(async (chapter, index) => {
-      let count = 0;
       const downRow = await dbService.getAllDowns({ chapterId: chapter.id });
       // console.log(downRow);
       if (count < 10 && !downRow.length) {
-        res = await this.getDowns(chapter.id);
         count++;
+        res = await this.getDowns(chapter.id);
       }
     });
 
@@ -29,13 +29,14 @@ class DownService {
   }
 
   async getDowns(chapterId) {
+    // console.log(chapterId);
     let res = [];
 
     const resp = await axios({
       method: 'GET',
       url: `${process.env.MANGADEX_URI}/at-home/server/${chapterId}`
     });
-    // console.log(resp.data);
+    console.log(resp.data);
     const down = resp.data;
     const downData = { id: down.id, data: down.chapter.data, dataSaver: down.chapter.dataSaver, chapterId: chapterId };
     res.push(downData);
