@@ -3,8 +3,9 @@ const Chapter = require('../models/chapterModel');
 const Down = require('../models/downModel');
 
 class ReadDbService {
-  async getFindChaptersList(data) {
-    
+  async getFindDownsList(data) {
+    const downs = await Down.find(data).populate({ path: 'Chapter', populate: { path: 'Manga' } });
+    return downs;
   }
 
   async insertMangaCollection(data) {
