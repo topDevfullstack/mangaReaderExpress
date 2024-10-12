@@ -8,7 +8,7 @@ class ReadDbService {
     const downsCounts = await Down.countDocuments();
     const downs = await Down.find()
       .populate({ path: 'chapter', populate: { path: 'manga' } })
-      .skip(offset * limit)
+      .skip(offset)
       .limit(limit);
     return { downs: downs, downsCounts: downsCounts };
   }
