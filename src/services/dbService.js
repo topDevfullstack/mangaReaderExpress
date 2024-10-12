@@ -4,8 +4,12 @@ const Down = require('../models/downModel');
 
 class ReadDbService {
   async getFindDownsList(data) {
-    const downsCounts = await Down.countDocuments(data);
-    const downs = await Down.find(data).populate({ path: 'chapter', populate: { path: 'manga' } });
+    const { limit, offset } = data;
+    const downsCounts = await Down.countDocuments();
+    const downs = await Down.find()
+      .populate({ path: 'chapter', populate: { path: 'manga' } })
+      .skip(offset * limit)
+      .limit(limit);
     return { downs: downs, downsCounts: downsCounts };
   }
 
