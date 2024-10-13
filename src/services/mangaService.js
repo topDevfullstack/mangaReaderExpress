@@ -5,12 +5,34 @@ const dbService = require('./dbService');
 class MangaService {
   async insertMangas(filter) {
     let res = [];
-    
+
+    const order = {
+      rating: 'desc',
+      followedCount: 'desc'
+    };
+
+    const finalOrderQuery = {};
+
+    // { "order[rating]": "desc", "order[followedCount]": "desc" }
+    for (const [key, value] of Object.entries(order)) {
+      finalOrderQuery[`order[${key}]`] = value;
+    };
+
+    const filters = {
+      publicationDemographic: ['seinen'],
+      status: ['completed'],
+      contentRating: ['suggestive'],
+      ...filter
+    };
+
     try {
       const resp = await axios({
         method: 'GET',
         url: `${process.env.MANGADEX_URI}/manga`,
-        params: filter
+        params: {
+          ...filters,
+          ...finalOrderQuery
+        }
       });
 
       if (resp && resp.data.data) {
