@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "637816b9-3572-4e2a-bff2-690c3ba3f828",
+		"name": "manga(sam Jack)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38674198"
+	},
+	"item": [
+		{
+			"name": "manga",
+			"item": [
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://api.mangadex.org/manga"
+					},
+					"response": []
+				},
+				{
+					"name": "mangas-table",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/manga?limit=100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"manga"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chapters",
+			"item": [
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://api.mangadex.org/manga/e0a8eefb-4859-44c1-aa44-6550618eae85/feed"
+					},
+					"response": []
+				},
+				{
+					"name": "download",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://api.mangadex.org/at-home/server/899a6931-1bf8-4b53-a171-8317ba8c7929"
+					},
+					"response": []
+				},
+				{
+					"name": "chapters-table",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/manga/chapters"
+					},
+					"response": []
+				},
+				{
+					"name": "downs-table",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/manga/chapters/down"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
