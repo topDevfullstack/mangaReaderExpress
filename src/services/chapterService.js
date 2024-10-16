@@ -40,12 +40,8 @@ class ChapterService {
       if (resp && resp.data.data) {
         const chapterPromises = resp.data.data.map(async (chapter) => {
           const chapterData = {
-            id: chapter.id,
-            type: chapter.type,
-            title: chapter.attributes.title,
-            manga: objId,
-            createdAt: chapter.attributes.createdAt,
-            updatedAt: chapter.attributes.updatedAt
+            ...chapter,
+            manga: objId
           };
 
           try {

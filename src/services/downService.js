@@ -41,10 +41,7 @@ class DownService {
 
       const down = resp.data;
       const downData = {
-        baseUrl: down.baseUrl,
-        hash: down.chapter.hash,
-        data: down.chapter.data,
-        dataSaver: down.chapter.dataSaver,
+        ...down,
         chapter: objId
       };
 

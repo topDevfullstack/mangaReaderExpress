@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 
 const ChapterSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
-  type: { type: String },
-  title: { type: String },
+  id: { type: String, required: true, unique: true }, // Customize your ID field as needed
   manga: { type: mongoose.Schema.Types.ObjectId, ref: 'Manga', required: true },
-  createdAt: { type: Date },
-  updatedAt: { type: Date }
-});
+}, { strict: false }); // Allow for dynamic fields from the MangaDex API
 
-module.exports = mongoose.model('Chapter', ChapterSchema);
+const Chapter = mongoose.model("Chapter", ChapterSchema);
+
+module.exports = Chapter;

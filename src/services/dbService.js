@@ -38,9 +38,13 @@ class ReadDbService {
     return Manga.findByIdAndDelete(_id);
   }
 
-  async insertChapterCollection(data) {
-    const chapter = new Chapter(data);
-    return chapter.save();
+  async insertChapterCollection(chapterData) {
+    try {
+      return await Chapter.insertMany(chapterData); // Ensure Manga is correctly imported
+    } catch (error) {
+      console.error(`Database error for manga ID: ${chapterData.id}`, error);
+      throw error; // Rethrow or handle the error as needed
+    }
   }
 
   async getAllChapters(filter) {
@@ -59,9 +63,13 @@ class ReadDbService {
     return Chapter.findByIdAndDelete(_id);
   }
 
-  async insertDownCollection(data) {
-    const down = new Down(data);
-    return down.save();
+  async insertDownCollection(downData) {
+    try {
+      return await Down.insertMany(downData); // Ensure Manga is correctly imported
+    } catch (error) {
+      console.error(`Database error for manga ID: ${downData.id}`, error);
+      throw error; // Rethrow or handle the error as needed
+    }
   }
 
   async getAllDowns(filter) {
@@ -72,12 +80,12 @@ class ReadDbService {
     return Down.findById(_id);
   }
 
-  async updateDown(_id, chapterData) {
-    return Chapter.findByIdAndUpdate(_id, chapterData, { new: true });
+  async updateDown(_id, downData) {
+    return Down.findByIdAndUpdate(_id, downData, { new: true });
   }
 
   async deleteDown(_id) {
-    return Chapter.findByIdAndDelete(_id);
+    return Down.findByIdAndDelete(_id);
   }
 }
 
