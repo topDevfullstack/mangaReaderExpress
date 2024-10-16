@@ -65,10 +65,10 @@ class ReadDbService {
 
   async insertDownCollection(downData) {
     try {
-      const down = new Down(data);
+      const down = new Down(downData);
       return await down.save();
     } catch (error) {
-      console.error(`Database error for manga ID: ${downData.id}`, error);
+      console.error(`Database error for manga ID: ${downData.chapter}`, error);
       throw error; // Rethrow or handle the error as needed
     }
   }
