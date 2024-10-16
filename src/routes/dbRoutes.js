@@ -4,4 +4,6 @@ const dbController = require('../controllers/dbController');
 
 router.get('/list', dbController.getFindChaptersList.bind(dbController));
 
+router.get('/tags/:lastly', dbController.gettagList.bind(dbController));
+
 module.exports = router;

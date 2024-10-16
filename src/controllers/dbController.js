@@ -9,6 +9,16 @@ class DbController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  async gettagList(req, res) {
+    try {
+      const { lastly } = req.params;
+      const mangas = await dbService.gettagList(lastly);
+      res.status(200).json(mangas);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = new DbController();

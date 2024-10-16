@@ -13,6 +13,15 @@ class ReadDbService {
     return { downs: downs, downsCounts: downsCounts };
   }
 
+  async gettagList(data) {
+    const downsCounts = await Down.countDocuments();
+    const downs = await Down.find()
+      .populate({ path: 'chapter', populate: { path: 'manga' } })
+      .skip(offset)
+      .limit(limit);
+    return { downs: downs, downsCounts: downsCounts };
+  }
+
   async insertMangaCollection(mangaData) {
     try {
       return await Manga.insertMany(mangaData); // Ensure Manga is correctly imported
