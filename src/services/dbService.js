@@ -14,6 +14,13 @@ class ReadDbService {
   }
 
   async gettagList(data) {
+    let limit = 12, offset = 0;
+    switch (data) {
+      case 'today': break;
+      case 'week': limit = 60; offset = 0; break;
+      case 'monthly': limit = 200; offset = 0; break;
+      default: break;
+    }
     const downsCounts = await Down.countDocuments();
     const downs = await Down.find()
       .populate({ path: 'chapter', populate: { path: 'manga' } })
