@@ -13,9 +13,13 @@ class ReadDbService {
     return { downs: downs, downsCounts: downsCounts };
   }
 
-  async insertMangaCollection(data) {
-    const manga = new Manga(data);
-    return manga.save();
+  async insertMangaCollection(mangaData) {
+    try {
+      return await Manga.insertMany(mangaData); // Ensure Manga is correctly imported
+    } catch (error) {
+      console.error(`Database error for manga ID: ${mangaData.id}`, error);
+      throw error; // Rethrow or handle the error as needed
+    }
   }
 
   async getAllMangas(filter) {

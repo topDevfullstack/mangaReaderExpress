@@ -19,9 +19,9 @@ class MangaService {
     };
 
     const filters = {
-      publicationDemographic: ['seinen'],
+      // publicationDemographic: ['seinen'],
       status: ['completed'],
-      contentRating: ['suggestive'],
+      // contentRating: ['suggestive'],
       ...filter
     };
 
@@ -37,13 +37,7 @@ class MangaService {
 
       if (resp && resp.data.data) {
         const mangaPromises = resp.data.data.map(async (manga) => {
-          const mangaData = {
-            id: manga.id,
-            type: manga.type,
-            title: manga.attributes.title.en,
-            createdAt: manga.attributes.createdAt,
-            updatedAt: manga.attributes.updatedAt
-          };
+          const mangaData = manga;
 
           try {
             const mangaRow = await dbService.getAllMangas({ id: mangaData.id });
