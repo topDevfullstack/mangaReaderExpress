@@ -2,9 +2,12 @@
 const mongoose = require('mongoose');
 
 const DownSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true }, // Customize your ID field as needed
+  baseUrl: { type: String },
+  hash: { type: String },
+  data: [{ type: String }],
+  dataSaver: [{ type: String }],
   chapter: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', required: true },
-}, { strict: false }); // Allow for dynamic fields from the MangaDex API
+});
 
 const Download = mongoose.model("Download", DownSchema);
 

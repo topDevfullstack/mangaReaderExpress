@@ -13,7 +13,7 @@ class DownService {
       const downPromises = chapters.map(async (chapter) => {
         const downRow = await dbService.getAllDowns({ chapter: chapter._id });
 
-        if (count < 10 && !downRow.length && downRow.baseUrl.search('uploads')) {
+        if (count < 10 && !downRow.length) {
           count++;
           const downData = await this.insertDowns(chapter._id, chapter.id);
           res.push(...downData); // Add the new down data entries to the res array
@@ -41,7 +41,10 @@ class DownService {
 
       const down = resp.data;
       const downData = {
-        ...down,
+        baseUrl: down.baseUrl,
+        hash: down.chapter.hash,
+        data: down.chapter.data,
+        dataSaver: down.chapter.dataSaver,
         chapter: objId
       };
 

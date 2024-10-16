@@ -65,7 +65,8 @@ class ReadDbService {
 
   async insertDownCollection(downData) {
     try {
-      return await Down.insertMany(downData); // Ensure Manga is correctly imported
+      const down = new Down(data);
+      return await down.save();
     } catch (error) {
       console.error(`Database error for manga ID: ${downData.id}`, error);
       throw error; // Rethrow or handle the error as needed
